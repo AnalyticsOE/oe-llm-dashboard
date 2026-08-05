@@ -380,9 +380,9 @@ function renderTrendCharts(){
     const pkeys=['chatgpt','gemini','copilot','claude_ai','perplexity'];
     const pcolors=['#10a37f','#4285f4','#00b4d8','#da8a38','#c084fc'];
     platDatasets=pkeys.map((k,i)=>({label:['ChatGPT','Gemini','Copilot','Claude','Perplexity'][i],data:dd.map(d=>d.platforms?.[k]||0),backgroundColor:pcolors[i]+'bf',borderRadius:2,stack:'llm'}));
-    lrLLM=dd.map(d=>d.llm_sessions>0?+(d.leads/d.llm_sessions*100).toFixed(1):0);
-    lrOrg=dd.map(d=>d.organic_sessions>0?+(d.organic_leads/d.organic_sessions*100).toFixed(1):0);
-    // Note: daily lead rate uses GA4 events as proxy — MCP leads only available at monthly granularity
+    lrLLM=dd.map(d=>d.llm_sessions>0?+((d.mcp_llm_leads||0)/d.llm_sessions*100).toFixed(1):0);
+    lrOrg=dd.map(d=>d.organic_sessions>0?+((d.mcp_organic_leads||0)/d.organic_sessions*100).toFixed(1):0);
+    // MCP daily leads now available — no proxy needed
   } else {
     const ms=filtered.monthly_filtered;
     if(!ms||ms.length===0){['ch-trend','ch-vs','ch-plat','ch-lr'].forEach(killChart);return;}
