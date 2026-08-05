@@ -42,6 +42,7 @@ body{background:var(--bg);color:var(--tx);font-family:-apple-system,"Inter","Seg
 .kpi-row-label hr{flex:1;border:none;border-top:1px solid var(--bd);margin:0}
 .kpi-row-dot{width:7px;height:7px;border-radius:50%;flex-shrink:0}
 .kpis{display:grid;gap:9px;margin-bottom:0}
+.kpis.r5{grid-template-columns:repeat(5,1fr)}
 .kpis.r6{grid-template-columns:repeat(6,1fr)}
 .kpis.r7{grid-template-columns:repeat(7,1fr)}
 .kpi{background:var(--s1);border:1px solid var(--bd);border-radius:12px;padding:11px 13px;position:relative;overflow:hidden}
@@ -143,9 +144,8 @@ tr.section-row td{background:var(--s3);font-size:10px;font-weight:700;text-trans
     <div class="kpi-row-dot" style="background:#3dcf8e"></div>
     <span class="rlabel">Orgánico / SEO</span><hr>
   </div>
-  <div class="kpis r6">
+  <div class="kpis r5">
     <div class="kpi nn"><div class="kpi-lbl">Organic Sessions</div><div class="kpi-val" id="k-org-s">—</div><div class="kpi-sub">Búsqueda orgánica <span class="src-pill src-ga4">GA4</span></div></div>
-    <div class="kpi tl"><div class="kpi-lbl">Organic Submissions</div><div class="kpi-val tl" id="k-org-sub">—</div><div class="kpi-sub">Eventos de lead <span class="src-pill src-ga4">GA4</span></div></div>
     <div class="kpi gr"><div class="kpi-lbl">Organic Leads</div><div class="kpi-val gr" id="k-org-l">—</div><div class="kpi-sub">Leads calificados <span class="src-pill src-mcp">MCP</span></div></div>
     <div class="kpi wa"><div class="kpi-lbl">Organic Lead Rate</div><div class="kpi-val wa" id="k-org-lr">—</div><div class="kpi-sub">Leads(MCP) / Sessions</div></div>
     <div class="kpi gr"><div class="kpi-lbl">Organic Sales</div><div class="kpi-val gr" id="k-org-sales">—</div><div class="kpi-sub">Core Enrollments <span class="src-pill src-mcp">MCP</span></div></div>
@@ -157,9 +157,8 @@ tr.section-row td{background:var(--s3);font-size:10px;font-weight:700;text-trans
     <div class="kpi-row-dot" style="background:#4f7fe4"></div>
     <span class="rlabel">AI / LLMs</span><hr>
   </div>
-  <div class="kpis r7">
+  <div class="kpis r6">
     <div class="kpi ac"><div class="kpi-lbl">LLM Sessions</div><div class="kpi-val ac" id="k-llm-s">—</div><div class="kpi-sub">Tráfico desde AI <span class="src-pill src-ga4">GA4</span></div></div>
-    <div class="kpi tl"><div class="kpi-lbl">LLM Submissions</div><div class="kpi-val tl" id="k-llm-sub">—</div><div class="kpi-sub">Eventos de lead <span class="src-pill src-ga4">GA4</span></div></div>
     <div class="kpi gr"><div class="kpi-lbl">LLM Leads</div><div class="kpi-val gr" id="k-llm-l">—</div><div class="kpi-sub">Leads calificados <span class="src-pill src-mcp">MCP</span></div></div>
     <div class="kpi wa"><div class="kpi-lbl">LLM Lead Rate</div><div class="kpi-val wa" id="k-lr">—</div><div class="kpi-sub">Leads(MCP) / Sessions</div></div>
     <div class="kpi vi"><div class="kpi-lbl">LLM Discovery Share</div><div class="kpi-val vi" id="k-vs">—</div><div class="kpi-sub">LLM / (LLM + Organic)</div></div>
@@ -170,7 +169,7 @@ tr.section-row td{background:var(--s3);font-size:10px;font-weight:700;text-trans
 
 <div class="donuts">
   <div class="card"><div class="card-title">Sessions — Organic vs AI/LLM</div><div class="donut-wrap"><div class="dnw"><canvas id="d-sessions"></canvas><div class="dnc"><div class="dc-val vi" id="dc-vs">—</div><div class="dc-lbl">LLM share</div></div></div><div class="donut-legend" id="leg-sessions"></div></div></div>
-  <div class="card"><div class="card-title">LLM Submissions — por Plataforma (GA4)</div><div class="donut-wrap"><div class="dnw"><canvas id="d-leads"></canvas><div class="dnc"><div class="dc-val gr" id="dc-leads">—</div><div class="dc-lbl">total leads</div></div></div><div class="donut-legend" id="leg-leads"></div></div></div>
+  <div class="card"><div class="card-title">LLM Leads — por Plataforma (MCP)</div><div class="donut-wrap"><div class="dnw"><canvas id="d-leads"></canvas><div class="dnc"><div class="dc-val gr" id="dc-leads">—</div><div class="dc-lbl">total leads</div></div></div><div class="donut-legend" id="leg-leads"></div></div></div>
 </div>
 
 <div class="tabs-box">
@@ -195,7 +194,7 @@ tr.section-row td{background:var(--s3);font-size:10px;font-weight:700;text-trans
   <div id="tab-plataformas" class="tabpane">
     <div class="section-title">Tráfico desde LLMs — período filtrado</div>
     <div class="tbl-wrap"><table>
-      <thead><tr><th>Plataforma LLM</th><th class="tr">Sessions</th><th class="tr">% LLM</th><th class="tr">Submissions</th><th class="tr">Sub. Rate</th></tr></thead>
+      <thead><tr><th>Plataforma LLM</th><th class="tr">Sessions</th><th class="tr">% LLM</th><th class="tr">Leads (MCP est.)</th><th class="tr">Lead Rate</th></tr></thead>
       <tbody id="tbl-plat"></tbody><tfoot id="tbl-plat-foot"></tfoot>
     </table></div>
     <div class="section-title" style="margin-top:18px">Tráfico Orgánico por Motor de Búsqueda — período filtrado</div>
@@ -203,7 +202,7 @@ tr.section-row td{background:var(--s3);font-size:10px;font-weight:700;text-trans
       <thead><tr><th>Motor de Búsqueda</th><th class="tr">Sessions</th><th class="tr">% Organic</th><th class="tr">Leads</th><th class="tr">Lead Rate</th></tr></thead>
       <tbody id="tbl-organic"></tbody><tfoot id="tbl-organic-foot"></tfoot>
     </table></div>
-    <div class="note">Submissions = eventos de formulario GA4. Lead Rate en tabla = Submissions/Sessions (GA4). Las KPI cards de Leads, Lead Rate, Sales y CVR usan datos del oe-marketing-mcp (Organization=OE · ReportPillar=Core · SEO / ChatGPT+Copilot+Perplexity).</div>
+    <div class="note">Leads = distribución proporcional de MCP leads (mcp_llm_leads) según el peso de sesiones por plataforma. Lead Rate = Leads(MCP est.) / Sessions(GA4). Fuente MCP: Organization=OE · ReportPillar=Core · Type=ChatGPT/Copilot/Perplexity.</div>
   </div>
 
   <div id="tab-paises" class="tabpane">
@@ -222,7 +221,7 @@ tr.section-row td{background:var(--s3);font-size:10px;font-weight:700;text-trans
       <thead><tr><th>Source / Medium</th><th>Canal</th><th class="tr">Sessions</th><th class="tr">% Sesiones</th><th class="tr">Leads</th><th class="tr">CVR</th></tr></thead>
       <tbody id="tbl-chan"></tbody>
     </table></div>
-    <div class="note">⚡ = AI/LLM. Datos filtrados por el rango de fechas seleccionado. Orgánico = estimación proporcional basada en distribución del período completo.</div>
+    <div class="note">⚡ = AI/LLM. Leads = distribución proporcional de MCP leads según sesiones por canal. CVR = Leads / Sessions. Fuente MCP: Organization=OE · ReportPillar=Core · Type=SEO / ChatGPT+Copilot+Perplexity.</div>
   </div>
 </div>
 
@@ -329,36 +328,34 @@ function updateStatus(){
 
 function renderKPIs(){
   const t=filtered.totals;
-  // Organic row
   document.getElementById('k-org-s').textContent    = N(t.organic_sessions);
-  document.getElementById('k-org-sub').textContent  = N(t.organic_leads);       // GA4 organic submissions
-  document.getElementById('k-org-l').textContent    = N(t.mcp_org_leads);       // MCP organic leads
-  document.getElementById('k-org-lr').textContent   = P(t.organic_lead_rate);   // MCP leads / GA4 sessions
-  document.getElementById('k-org-sales').textContent= N(t.mcp_org_sales);       // MCP organic sales
-  document.getElementById('k-org-cvr').textContent  = P(t.organic_cvr);         // sales/leads MCP
-  // LLM row
+  document.getElementById('k-org-l').textContent    = N(t.mcp_org_leads);
+  document.getElementById('k-org-lr').textContent   = P(t.organic_lead_rate);
+  document.getElementById('k-org-sales').textContent= N(t.mcp_org_sales);
+  document.getElementById('k-org-cvr').textContent  = P(t.organic_cvr);
   document.getElementById('k-llm-s').textContent    = N(t.llm_sessions);
-  document.getElementById('k-llm-sub').textContent  = N(t.leads);               // GA4 LLM submissions
-  document.getElementById('k-llm-l').textContent    = N(t.mcp_llm_leads);       // MCP LLM leads
-  document.getElementById('k-lr').textContent       = P(t.lead_rate);           // MCP leads / GA4 sessions
+  document.getElementById('k-llm-l').textContent    = N(t.mcp_llm_leads);
+  document.getElementById('k-lr').textContent       = P(t.lead_rate);
   document.getElementById('k-vs').textContent       = P(t.llm_discovery_share);
-  document.getElementById('k-llm-sales').textContent= N(t.mcp_llm_sales);       // MCP LLM sales
-  document.getElementById('k-llm-cvr').textContent  = P(t.llm_cvr);             // sales/leads MCP
+  document.getElementById('k-llm-sales').textContent= N(t.mcp_llm_sales);
+  document.getElementById('k-llm-cvr').textContent  = P(t.llm_cvr);
 }
 
 function renderDonuts(){
   const t=filtered.totals;
   document.getElementById('dc-vs').textContent   = P(t.llm_discovery_share);
-  document.getElementById('dc-leads').textContent= N(t.leads);
+  document.getElementById('dc-leads').textContent= N(t.mcp_llm_leads);
 
-  // Sessions donut
-  mkChart('d-sessions',{type:'doughnut',data:{labels:['AI/LLM','Organic'],datasets:[{data:[t.llm_sessions,t.organic_sessions],backgroundColor:['#4f7fe4','#252535'],borderWidth:0,hoverOffset:4}]},options:{cutout:'72%',plugins:{tooltip:{callbacks:{label:ctx=>' '+N(ctx.raw)+' ('+P(ctx.raw/(t.llm_sessions+t.organic_sessions)*100)+')'}}}}}); 
+  // Sessions donut — GA4
+  mkChart('d-sessions',{type:'doughnut',data:{labels:['AI/LLM','Organic'],datasets:[{data:[t.llm_sessions,t.organic_sessions],backgroundColor:['#4f7fe4','#252535'],borderWidth:0,hoverOffset:4}]},options:{cutout:'72%',plugins:{tooltip:{callbacks:{label:ctx=>' '+N(ctx.raw)+' ('+P(ctx.raw/(t.llm_sessions+t.organic_sessions)*100)+')'}}}}});
   document.getElementById('leg-sessions').innerHTML=[['AI/LLM',t.llm_sessions,'#4f7fe4'],['Organic',t.organic_sessions,'#252535']].map(([n,v,c])=>`<div class="leg-item"><div class="leg-dot" style="background:${c}"></div><span class="leg-name">${n}</span><span class="leg-val">${N(v)}</span><span class="leg-pct">${P(v/(t.llm_sessions+t.organic_sessions)*100)}</span></div>`).join('');
 
-  // Leads donut — ALWAYS from plat_filtered (computed from monthly data)
-  const plats=filtered.plat_filtered.filter(p=>p.leads>0);
-  mkChart('d-leads',{type:'doughnut',data:{labels:plats.map(p=>p.name),datasets:[{data:plats.map(p=>p.leads),backgroundColor:plats.map(p=>p.color),borderWidth:0,hoverOffset:4}]},options:{cutout:'72%',plugins:{tooltip:{callbacks:{label:ctx=>' '+N(ctx.raw)+' ('+P(t.leads>0?ctx.raw/t.leads*100:0)+')'}}}}}); 
-  document.getElementById('leg-leads').innerHTML=plats.map(p=>`<div class="leg-item"><div class="leg-dot" style="background:${p.color}"></div><span class="leg-name">${p.name}</span><span class="leg-val">${N(p.leads)}</span><span class="leg-pct">${P(t.leads>0?p.leads/t.leads*100:0)}</span></div>`).join('');
+  // Leads donut — MCP leads, distributed proportionally by platform sessions
+  const plats=filtered.plat_filtered.filter(p=>p.sessions>0);
+  const totalPlatSess=plats.reduce((a,p)=>a+p.sessions,0);
+  const platLeadsMCP=plats.map(p=>totalPlatSess>0?Math.round(t.mcp_llm_leads*p.sessions/totalPlatSess):0);
+  mkChart('d-leads',{type:'doughnut',data:{labels:plats.map(p=>p.name),datasets:[{data:platLeadsMCP,backgroundColor:plats.map(p=>p.color),borderWidth:0,hoverOffset:4}]},options:{cutout:'72%',plugins:{tooltip:{callbacks:{label:ctx=>' '+N(ctx.raw)+' ('+P(t.mcp_llm_leads>0?ctx.raw/t.mcp_llm_leads*100:0)+')'}}}}}});
+  document.getElementById('leg-leads').innerHTML=plats.map((p,i)=>`<div class="leg-item"><div class="leg-dot" style="background:${p.color}"></div><span class="leg-name">${p.name}</span><span class="leg-val">${N(platLeadsMCP[i])}</span><span class="leg-pct">${P(t.mcp_llm_leads>0?platLeadsMCP[i]/t.mcp_llm_leads*100:0)}</span></div>`).join('');
 }
 
 function renderTrendCharts(){
@@ -385,7 +382,7 @@ function renderTrendCharts(){
     platDatasets=pkeys.map((k,i)=>({label:['ChatGPT','Gemini','Copilot','Claude','Perplexity'][i],data:dd.map(d=>d.platforms?.[k]||0),backgroundColor:pcolors[i]+'bf',borderRadius:2,stack:'llm'}));
     lrLLM=dd.map(d=>d.llm_sessions>0?+(d.leads/d.llm_sessions*100).toFixed(1):0);
     lrOrg=dd.map(d=>d.organic_sessions>0?+(d.organic_leads/d.organic_sessions*100).toFixed(1):0);
-    // Note: daily LR uses GA4 submissions as proxy (MCP leads not available at daily granularity)
+    // Note: daily lead rate uses GA4 events as proxy — MCP leads only available at monthly granularity
   } else {
     const ms=filtered.monthly_filtered;
     if(!ms||ms.length===0){['ch-trend','ch-vs','ch-plat','ch-lr'].forEach(killChart);return;}
@@ -427,35 +424,36 @@ function renderTrendCharts(){
 function renderPlatforms(){
   const plats=filtered.plat_filtered;
   const t=filtered.totals;
+  const totalPlatSess=plats.reduce((a,p)=>a+p.sessions,0);
   let html='';
   plats.forEach(p=>{
     const pct=t.llm_sessions>0?(p.sessions/t.llm_sessions*100).toFixed(1):'0.0';
-    const sr=p.sessions>0?(p.leads/p.sessions*100).toFixed(1):'0.0'; // submission rate
-    html+=`<tr><td><span class="pdot" style="background:${p.color}"></span>${p.name}</td><td class="tr">${N(p.sessions)}</td><td class="tr"><div class="pbar"><div class="pbar-track"><div class="pbar-fill" style="width:${pct}%;background:${p.color}"></div></div>${pct}%</div></td><td class="tr">${N(p.leads)}</td><td class="tr"><span class="${RC(parseFloat(sr))}">${sr}%</span></td></tr>`;
+    // Distribute MCP LLM leads proportionally by platform sessions
+    const platLeads=totalPlatSess>0?Math.round(t.mcp_llm_leads*p.sessions/totalPlatSess):0;
+    const lr=p.sessions>0?(platLeads/p.sessions*100).toFixed(1):'0.0';
+    html+=`<tr><td><span class="pdot" style="background:${p.color}"></span>${p.name}</td><td class="tr">${N(p.sessions)}</td><td class="tr"><div class="pbar"><div class="pbar-track"><div class="pbar-fill" style="width:${pct}%;background:${p.color}"></div></div>${pct}%</div></td><td class="tr">${N(platLeads)}</td><td class="tr"><span class="${RC(parseFloat(lr))}">${lr}%</span></td></tr>`;
   });
   document.getElementById('tbl-plat').innerHTML=html;
-  const sr=t.llm_sessions>0?(t.leads/t.llm_sessions*100).toFixed(1):'0.0';
-  document.getElementById('tbl-plat-foot').innerHTML=`<tr class="tfoot"><td>Total LLM</td><td class="tr">${N(t.llm_sessions)}</td><td class="tr">100%</td><td class="tr">${N(t.leads)}</td><td class="tr"><span class="${RC(parseFloat(sr))}">${sr}%</span></td></tr>`;
+  const totLR=t.llm_sessions>0?(t.mcp_llm_leads/t.llm_sessions*100).toFixed(1):'0.0';
+  document.getElementById('tbl-plat-foot').innerHTML=`<tr class="tfoot"><td>Total LLM</td><td class="tr">${N(t.llm_sessions)}</td><td class="tr">100%</td><td class="tr">${N(t.mcp_llm_leads)}</td><td class="tr"><span class="${RC(parseFloat(totLR))}">${totLR}%</span></td></tr>`;
 
-  // Organic table — dynamic from monthly_filtered
+  // Organic table — dynamic from monthly_filtered using MCP leads
   const orgTotal=t.organic_sessions;
-  const orgLeads=t.organic_leads;
   const data=rawData[prop];
-  // Full period organic source breakdown (proportions)
   const orgChannels=data.channels.filter(c=>c.type==='Organic');
   const fullOrgTotal=orgChannels.reduce((a,c)=>a+c.sessions,0);
   let orgHtml='';
   orgChannels.forEach(c=>{
     const proportion=fullOrgTotal>0?c.sessions/fullOrgTotal:0;
     const filtSess=Math.round(orgTotal*proportion);
-    const filtLeads=Math.round(orgLeads*proportion);
+    const filtLeads=Math.round(t.mcp_org_leads*proportion); // MCP organic leads proportional
     const pct=orgTotal>0?(filtSess/orgTotal*100).toFixed(1):'0.0';
     const cvr=filtSess>0?(filtLeads/filtSess*100).toFixed(1):'0.0';
     orgHtml+=`<tr><td>${c.source}</td><td class="tr">${N(filtSess)}</td><td class="tr">${pct}%</td><td class="tr">${N(filtLeads)}</td><td class="tr"><span class="${RC(parseFloat(cvr))}">${cvr}%</span></td></tr>`;
   });
   document.getElementById('tbl-organic').innerHTML=orgHtml;
-  const orgCvr=orgTotal>0?(orgLeads/orgTotal*100).toFixed(1):'0.0';
-  document.getElementById('tbl-organic-foot').innerHTML=`<tr class="tfoot"><td>Total Orgánico</td><td class="tr">${N(orgTotal)}</td><td class="tr">100%</td><td class="tr">${N(orgLeads)}</td><td class="tr"><span class="${RC(parseFloat(orgCvr))}">${orgCvr}%</span></td></tr>`;
+  const orgCvr=orgTotal>0?(t.mcp_org_leads/orgTotal*100).toFixed(1):'0.0';
+  document.getElementById('tbl-organic-foot').innerHTML=`<tr class="tfoot"><td>Total Orgánico</td><td class="tr">${N(orgTotal)}</td><td class="tr">100%</td><td class="tr">${N(t.mcp_org_leads)}</td><td class="tr"><span class="${RC(parseFloat(orgCvr))}">${orgCvr}%</span></td></tr>`;
 }
 
 function renderCountries(){
@@ -473,19 +471,23 @@ function renderChannels(){
   const data=rawData[prop];
   const orgChannels=data.channels.filter(c=>c.type==='Organic');
   const fullOrgTotal=orgChannels.reduce((a,c)=>a+c.sessions,0);
-  const llmRows=filtered.plat_filtered.map(p=>({
-    source:p.name==='ChatGPT'?'chatgpt.com':p.name==='Gemini'?'gemini.google.com':p.name==='Copilot'?'copilot.com':p.name==='Claude'?'claude.ai':'perplexity.ai',
-    type:'AI/LLM',sessions:p.sessions,leads:p.leads,llm:true,color:p.color
-  }));
 
-  const allRows=[
-    ...orgChannels.map(c=>{
-      const prop=fullOrgTotal>0?c.sessions/fullOrgTotal:0;
-      return{...c,sessions:Math.round(t.organic_sessions*prop),leads:Math.round(t.organic_leads*prop)};
-    }),
-    ...llmRows
-  ].sort((a,b)=>b.sessions-a.sessions);
+  // LLM rows — proportional MCP llm leads by platform sessions
+  const platRows=filtered.plat_filtered.map(p=>{
+    const llmLeads=t.llm_sessions>0?Math.round(t.mcp_llm_leads*p.sessions/t.llm_sessions):0;
+    const srcMap={'ChatGPT':'chatgpt.com','Gemini':'gemini.google.com','Copilot':'copilot.com','Claude':'claude.ai','Perplexity':'perplexity.ai'};
+    return{source:srcMap[p.name]||p.name,type:'AI/LLM',sessions:p.sessions,leads:llmLeads,llm:true,color:p.color};
+  });
 
+  // Organic rows — proportional MCP organic leads
+  const orgRows=orgChannels.map(c=>{
+    const proportion=fullOrgTotal>0?c.sessions/fullOrgTotal:0;
+    const filtSess=Math.round(t.organic_sessions*proportion);
+    const filtLeads=Math.round(t.mcp_org_leads*proportion);
+    return{...c,sessions:filtSess,leads:filtLeads};
+  });
+
+  const allRows=[...orgRows,...platRows].sort((a,b)=>b.sessions-a.sessions);
   const totS=allRows.reduce((a,c)=>a+c.sessions,0);
   document.getElementById('tbl-chan').innerHTML=allRows.map(c=>{
     const pct=totS>0?(c.sessions/totS*100).toFixed(1):'0.0';
